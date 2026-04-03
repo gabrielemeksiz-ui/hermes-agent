@@ -14,5 +14,4 @@ RUN mkdir -p /app && printf '#!/bin/bash\nexec hermes --gateway' > /app/start.sh
 RUN chmod +x /opt/hermes/docker/entrypoint.sh
 
 ENV HERMES_HOME=/opt/data
-VOLUME [ "/opt/data" ]
 ENTRYPOINT [ "/opt/hermes/docker/entrypoint.sh" ]
