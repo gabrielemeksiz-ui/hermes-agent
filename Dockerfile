@@ -9,7 +9,7 @@ WORKDIR /opt/hermes
 
 RUN pip install -e ".[messaging,cron,mcp,honcho]" --no-cache-dir
 
-RUN mkdir -p /app && printf '#!/bin/bash\nexec hermes --gateway' > /app/start.sh && chmod +x /app/start.sh
+RUN mkdir -p /app && printf '#!/bin/bash\nexec hermes gateway' > /app/start.sh && chmod +x /app/start.sh
 
 RUN chmod +x /opt/hermes/docker/entrypoint.sh
 
