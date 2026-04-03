@@ -1,18 +1,14 @@
-FROM debian:13.4
+FROM python:3.11-slim
 
-RUN apt-get update
-RUN apt-get install -y nodejs npm python3 python3-pip ripgrep ffmpeg gcc python3-dev libffi-dev
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential libffi-dev && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY . /opt/hermes
 WORKDIR /opt/hermes
 
-RUN pip install -e ".[all]" --break-system-packages
-RUN npm install
-RUN npx playwright install --with-deps chromium
-WORKDIR /opt/hermes/scripts/whatsapp-bridge
-RUN npm install
+RUN pip install -e ".[messaging,cron,mcp,honcho]" --no-cache-dir
 
-WORKDIR /opt/hermes
 RUN chmod +x /opt/hermes/docker/entrypoint.sh
 
 ENV HERMES_HOME=/opt/data
